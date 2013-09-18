@@ -1,5 +1,6 @@
-PATH
-  remote: ~/Projects/kablammo-strategy
+GIT
+  remote: git://github.com/carbonfive/kablammo-strategy.git
+  revision: 609ca7e85a0f1e5e0a47a8b3e1a25286d30ad59a
   specs:
     kablammo (0.1)
       execjs (= 1.4.0)
