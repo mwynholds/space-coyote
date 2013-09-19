@@ -5,14 +5,17 @@ include Defensive
 
 @state = State.new
 on_turn do
-  @state.update battle
+  @state.update me, battle
   turn = handle_turn
   @state.save_turn turn
   turn
 end
 
 def handle_turn
-  if my.ammo >= 5
+  attacker = imminent_attacker
+  return dodge attacker if attacker
+
+  if my.ammo >= 2
     enemy = choose_enemy
     comp = calculate_comp enemy
     turn = act_aggressively enemy, compensate: comp
@@ -21,6 +24,12 @@ def handle_turn
   end
 
   act_defensively
+end
+
+def imminent_attacker
+  attackers = @state.imminent_attackers
+  return nil if attackers.empty?
+  attackers.shuffle[0]
 end
 
 def choose_enemy
