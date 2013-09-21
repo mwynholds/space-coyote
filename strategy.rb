@@ -19,7 +19,6 @@ def handle_turn
     enemy = choose_enemy
     comp = calculate_comp enemy
     turn = act_aggressively enemy, comp
-    @state.save_fire enemy, comp if turn =~ /^f/
     return turn
   end
 
@@ -41,8 +40,10 @@ def hunt
 end
 
 def fire_at!(enemy, compensate = false)
-  direction = robot.direction_to(enemy).round
-  skew = direction - robot.rotation
+  @state.save_fire enemy, compensate
+  direction = robot.direction_to(enemy)
+  skew = (direction - robot.rotation).round(2)
+  #puts "firing: direction #{direction}, skew: #{skew}"
   distance = robot.distance_to(enemy)
   max_distance = Math.sqrt(board.height * board.height + board.width * board.width)
   compensation = ( 10 - ( (10 - 3) * (distance / max_distance) ) ).round
