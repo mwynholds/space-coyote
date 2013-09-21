@@ -12,10 +12,11 @@ on_turn do
 end
 
 def handle_turn
+  return hunt
   attacker = imminent_attacker
   return dodge attacker if attacker
 
-  if my.ammo >= 2
+  if my.armor >= 2
     enemy = choose_enemy
     comp = calculate_comp enemy
     turn = act_aggressively enemy, comp

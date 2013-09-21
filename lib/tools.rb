@@ -43,15 +43,30 @@ module Tools
     move
   end
 
+  def right_hand_rule(bearing)
+    dir = @state.last_move || bearing
+    dir = face_left(bearing) if dir == bearing
+    move = move_right dir
+    #puts "dir #{dir}, pos [#{me.x},#{me.y}], moves #{lefts(dir)} = #{move}"
+    move
+  end
+
   def pledge_algorithm
     bearing = closest_edge
+    hand_rule = Proc.new do
+      if ( @state.turn_index / 30 ) % 2 == 0
+        left_hand_rule bearing
+      else
+        right_hand_rule bearing
+      end
+    end
     #print "pledge: bearing #{bearing}, edge #{at_edge?}, "
     if at_edge?
       @state.at_edge
-      return left_hand_rule bearing
+      return hand_rule.call
     end
     return move! bearing if can_move? bearing
-    left_hand_rule bearing
+    hand_rule.call
   end
 
   def at_edge?
