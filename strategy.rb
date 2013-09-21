@@ -12,7 +12,6 @@ on_turn do
 end
 
 def handle_turn
-  return hunt
   attacker = imminent_attacker
   return dodge attacker if attacker
 
