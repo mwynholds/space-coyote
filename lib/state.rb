@@ -27,6 +27,23 @@ class State
     @history.last.fire = FireState.new enemy, comp
   end
 
+  def hunting
+    current_history.hunting = true
+    at_edge if previous_history && previous_history.edge
+  end
+
+  def hunting?
+    current_history.hunting
+  end
+
+  def at_edge
+    current_history.edge = true
+  end
+
+  def at_edge?
+    current_history.edge
+  end
+
   def calculate_comp(enemy)
     return 1.0 if @history.empty?
 
@@ -62,8 +79,12 @@ class State
     prev.armor > cur.armor
   end
 
+  def current_history
+    @history[-1]
+  end
+
   def current_battle
-    @history[-1].battle
+    current_history.battle
   end
 
   def current_me
@@ -74,20 +95,37 @@ class State
     current_battle.robots.detect { |r| r.username == username }
   end
 
+  def previous_history
+    @history[-2]
+  end
+
   def previous_battle
-    @history[-2].battle
+    previous_history.battle
   end
 
   def previous_me
     previous_battle.robots.detect { |r| r.username == @username }
   end
+
+  def last_move
+    return nil if @history.length < 2
+    last_move_turn = @history.reverse[1..-1].detect do |h|
+      %w(n e s w).include? h.turn
+    end
+    last_move_turn ? last_move_turn.turn : nil
+  end
+
+  def turn_index
+    @history.length
+  end
 end
 
 class TurnState
-  attr_accessor :battle, :turn, :fire
+  attr_accessor :battle, :turn, :fire, :hunting, :edge
 
   def initialize(battle)
     @battle = battle
+    @hunting = false
   end
 
   def robot(username)
