@@ -17,7 +17,7 @@ module Defensive
 
   def act_defensively
     enemy = opponents.first
-    return dance unless enemy
+    return rest unless enemy
     return dodge enemy if enemy.can_fire_at? me
     return rest unless my.ammo_full?
     move_away_from! enemy

@@ -15,6 +15,13 @@ def handle_turn
   attacker = imminent_attacker
   return dodge attacker if attacker
 
+  # when:
+  # 1. enough turns have gone by such that we've seen all the enemies (30?)
+  # 2. only one enemy left
+  # 3. i have more armor than them
+  # then:
+  # - act_aggressively
+
   if my.armor >= 2
     enemy = choose_enemy
     comp = calculate_comp enemy
