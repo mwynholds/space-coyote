@@ -1,6 +1,6 @@
 GIT
-  remote: git://github.com/carbonfive/kablammo-strategy.git
-  revision: c046dcf1d65442795e4f9cc60ef84fdb8f81c086
+  remote: https://github.com/carbonfive/kablammo-strategy.git
+  revision: 585c4399b03ae170d9bf32782372d3f6d9acbfba
   specs:
     kablammo (0.1)
       execjs (= 1.4.0)
@@ -13,10 +13,10 @@ GEM
   specs:
     execjs (1.4.0)
       multi_json (~> 1.0)
-    json (1.8.0)
-    multi_json (1.8.0)
-    oj (2.1.4)
-    redis (3.0.4)
+    json (2.2.0)
+    multi_json (1.13.1)
+    oj (3.8.1)
+    redis (4.1.2)
     redis_message_capsule (0.8.3)
       json
       redis
@@ -26,3 +26,6 @@ PLATFORMS
 
 DEPENDENCIES
   kablammo!
+
+BUNDLED WITH
+   2.0.2
