@@ -13,7 +13,7 @@ GEM
   specs:
     execjs (1.4.0)
       multi_json (~> 1.0)
-    json (2.2.0)
+    json (2.3.1)
     multi_json (1.13.1)
     oj (3.8.1)
     redis (4.1.2)
